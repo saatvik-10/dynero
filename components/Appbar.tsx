@@ -8,7 +8,7 @@ const Appbar = () => {
   const session = useSession();
 
   return (
-    <div className='flex flex-col max-w-3xl shadow-md border-none items-center justify-between'>
+    <div className='flex flex-row max-w-7xl shadow-lg border-none items-center justify-between p-4 m-6 rounded-md'>
       <div>DYNERO</div>
 
       <div>
