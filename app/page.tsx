@@ -64,7 +64,7 @@ export default function Home() {
           {['Secure', 'Fast', 'Decentralized', 'User-Friendly'].map((feature) => (
             <span 
               key={feature}
-              className="px-4 py-2 bg-white/50 backdrop-blur-sm border font-semibold border-slate-200 rounded-full text-sm font-medium text-slate-600"
+              className="px-4 py-2 bg-white/50 backdrop-blur-sm border border-slate-200 rounded-full text-sm font-medium text-slate-600"
             >
               {feature}
             </span>
