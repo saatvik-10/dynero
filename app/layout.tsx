@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased container mx-auto max-w-7xl`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased container mx-auto max-w-7xl md:px-0 px-2`}
       >
         <Providers>
         <Appbar />
