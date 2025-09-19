@@ -19,11 +19,11 @@ model User {
   password       String?
   solanaWalletId String?
   solanaWallet   SolanaWallet?
-  inrBalance     InrBalance?
-  provider Provider
+  inrWallet      InrWallet?
+  provider       Provider
 }
 
-model InrBalance {
+model InrWallet {
   id      String @id @default(cuid())
   balance Int
   userId  String @unique
