@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import { db } from "@/app/db"
+import { Keypair } from "@solana/web3.js"
 
 const handler = NextAuth({
     providers: [
@@ -26,6 +27,10 @@ const handler = NextAuth({
 
                 if (userDB) return true
 
+                const keypair = Keypair.generate();
+                const publicKey = keypair.publicKey.toBase58();
+                const privateKey = keypair.secretKey
+
                 await db.user.create({
                     data: {
                         username: email,
@@ -43,7 +48,9 @@ const handler = NextAuth({
                         }
                     }
                 })
+                return true;
             }
+            return false;
         }
     }
 })
