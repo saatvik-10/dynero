@@ -1,9 +1,12 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
+import { ArrowRight } from "lucide-react";
+import { signIn, useSession } from "next-auth/react";
 
 export default function Home() {
+  const session = useSession();
+
   return (
     <main className="flex flex-col items-center justify-center py-10">
       <div className="max-w-4xl mx-auto text-center space-y-8">
@@ -34,22 +37,34 @@ export default function Home() {
         </div>
 
         <div className="pt-8">
-          <Button 
-            size="lg"
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
-            onClick={() => {
-              signIn('google')
-            }}
-          >
-            Sign In with Google
-          </Button>
+          {session?.data?.user ? (
+              <Button 
+                size="lg"
+                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                
+              >
+                Continue to Dashboard
+              <ArrowRight />
+              </Button>
+          ) : (
+
+            <Button 
+              size="lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
+              onClick={() => {
+                signIn('google')
+              }}
+            >
+              Sign In with Google
+            </Button>
+          )}
         </div>
 
         <div className="flex flex-wrap justify-center gap-3 pt-8">
           {['Secure', 'Fast', 'Decentralized', 'User-Friendly'].map((feature) => (
             <span 
               key={feature}
-              className="px-4 py-2 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300"
+              className="px-4 py-2 bg-white/50 backdrop-blur-sm border font-semibold border-slate-200 rounded-full text-sm font-medium text-slate-600"
             >
               {feature}
             </span>
