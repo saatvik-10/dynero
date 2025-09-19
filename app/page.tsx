@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function Home() {
   const session = useSession();
@@ -38,6 +39,7 @@ export default function Home() {
 
         <div className="pt-8">
           {session?.data?.user ? (
+            <Link href='/dashboard'>
               <Button 
                 size="lg"
                 className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
@@ -46,6 +48,7 @@ export default function Home() {
                 Continue to Dashboard
               <ArrowRight />
               </Button>
+            </Link>
           ) : (
 
             <Button 
