@@ -28,12 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased container mx-auto max-w-7xl md:px-0 px-2`}
+        className={`${geistSans.variable} ${geistMono.variable} container mx-auto max-w-7xl px-2 antialiased md:px-0`}
       >
         <Providers>
-        <Appbar />
-        {children}
-        <Toaster richColors/>
+          <Appbar />
+          {children}
+          <Toaster richColors />
         </Providers>
       </body>
     </html>
