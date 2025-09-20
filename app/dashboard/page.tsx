@@ -1,21 +1,19 @@
-'use client';
-
 import { Profile } from '@/components/Wallet';
-import { useSession } from 'next-auth/react';
+import { getUserWallet } from '../actions/balance';
+import { toast } from 'sonner';
 
-const Dashboard = () => {
-  const session = useSession();
-  const loading = session?.status == 'loading';
+const Dashboard = async () => {
+  const userWallet = await getUserWallet();
+
+  if (userWallet.error || !userWallet.userWallet?.pubkey) {
+    toast.error('Solana wallet not found');
+    return <span className='text-center'>No Solana wallet found</span>;
+  }
 
   return (
     <>
-      <Profile
-        loading={loading}
-        image={session?.data?.user?.image || ''}
-        name={session?.data?.user?.name || ''}
-        user={!!session?.data?.user}
-      />
-    </>
+      <Profile publicKey={userWallet.userWallet?.pubkey!} />
+    </> 
   );
 };
 
