@@ -34,6 +34,9 @@ const handler = NextAuth({
                 await db.user.create({
                     data: {
                         username: email,
+                        name: profile?.name,
+                        //@ts-ignore
+                        profilePicture: profile?.picture,
                         provider: "Google",
                         solanaWallet: {
                             create: {
