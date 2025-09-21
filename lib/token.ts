@@ -1,4 +1,4 @@
-interface TokenInterface {
+export interface TokenInterface {
     name: string,
     mint: string,
     native: boolean,
