@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { BadgeDollarSign, CheckCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { useTokens } from '@/hooks/useToken';
+import TokenTableList from './TokenTableList';
 
 export function Profile({ publicKey }: { publicKey: string }) {
   const route = useRouter();
@@ -108,9 +109,7 @@ export function Profile({ publicKey }: { publicKey: string }) {
               </Button>
             </div>
 
-            <div className=''>
-              <div>{JSON.stringify(tokenBalance?.tokens)}</div>
-            </div>
+            <TokenTableList tks={tokenBalance?.tks || []} />
           </div>
         </div>
       </div>
