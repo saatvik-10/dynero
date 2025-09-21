@@ -8,14 +8,17 @@ import { useSession } from 'next-auth/react';
 import { toast } from 'sonner';
 import { BadgeDollarSign, CheckCircle } from 'lucide-react';
 import { Button } from './ui/button';
+import { useTokens } from '@/hooks/useToken';
 
 export function Profile({ publicKey }: { publicKey: string }) {
   const route = useRouter();
   const session = useSession();
-  const loading = session?.status == 'loading';
+  const loadingStatus = session?.status == 'loading';
 
   const [copy, setCopy] = useState<boolean>(false);
-
+  const { loading, tokenBalance } = useTokens(
+    '8fCXUDCkvhEQkYNyMbsWgYsaqikorojdv2hgfezfvbdD'
+  );
   useEffect(() => {
     if (copy) {
       let timeout = setTimeout(() => {
@@ -33,7 +36,7 @@ export function Profile({ publicKey }: { publicKey: string }) {
     setCopy(true);
   };
 
-  if (loading) {
+  if (loadingStatus) {
     return (
       <div className='flex justify-center pt-10'>
         <div className='w-full max-w-md rounded-md shadow-md md:max-w-xl'>
@@ -47,6 +50,10 @@ export function Profile({ publicKey }: { publicKey: string }) {
         </div>
       </div>
     );
+  }
+
+  if (loading) {
+    return <p>loading</p>;
   }
 
   if (!session?.data?.user) {
@@ -64,23 +71,31 @@ export function Profile({ publicKey }: { publicKey: string }) {
               alt=''
               className='size-10 rounded-full'
             />
-            <span className='md:text-xl'>
-              Yello again, {session?.data?.user?.name}!
+            <span className='text-lg md:text-xl'>
+              Yello again,{' '}
+              <span className='font-semibold'>
+                {session?.data?.user?.name}!
+              </span>
             </span>
           </div>
 
           <Separator className='my-3' />
 
           <div className='flex flex-col'>
-            <span className='text-sm text-slate-400 flex items-center gap-1'>
+            <span className='text-xs md:text-sm text-slate-500 flex items-center gap-1'>
               <BadgeDollarSign className='size-4' /> Your Assets in Dynero
             </span>
-            <div className='flex items-center justify-between pt-5'>
-              <div></div>
+            <div className='flex items-center justify-between pt-4'>
+              <div className='flex items-end md:items-end gap-1 font-bold text-green-600 text-3xl md:text-4xl'>
+                $ {tokenBalance?.totalBalance}
+                <span className='font-semibold text-xs md:text-xl text-gray-500'>
+                  USD
+                </span>
+              </div>
               <Button
                 onClick={handleCopy}
                 size={'sm'}
-                className='bg-gradient-to-r from-blue-600 to-purple-600 cursor-pointer'
+                className='text-xs md:text-sm bg-gradient-to-r from-blue-600 to-purple-600 cursor-pointer'
               >
                 {copy ? (
                   <div className='flex items-center gap-2'>
@@ -91,6 +106,10 @@ export function Profile({ publicKey }: { publicKey: string }) {
                   'Copy Wallet Address'
                 )}
               </Button>
+            </div>
+
+            <div className=''>
+              <div>{JSON.stringify(tokenBalance?.tokens)}</div>
             </div>
           </div>
         </div>
