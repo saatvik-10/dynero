@@ -10,6 +10,8 @@ import { BadgeDollarSign, CheckCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { useTokens } from '@/hooks/useToken';
 import TokenTableList from './TokenTableList';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Swap from './Swap';
 
 export function Profile({ publicKey }: { publicKey: string }) {
   const route = useRouter();
@@ -111,7 +113,24 @@ export function Profile({ publicKey }: { publicKey: string }) {
 
             <Separator className='my-3' />
 
-            <TokenTableList tks={tokenBalance?.tks || []} />
+            <Tabs defaultValue='tokens'>
+              <TabsList className='flex items-center justify-center w-full [&>*]:cursor-pointer'>
+                <TabsTrigger value='tokens'>TOKENS</TabsTrigger>
+                <TabsTrigger value='send'>SEND</TabsTrigger>
+                <TabsTrigger value='add_funds'>ADD FUNDS</TabsTrigger>
+                <TabsTrigger value='withdraw'>WITHDRAW</TabsTrigger>
+                <TabsTrigger value='swap'>SWAP</TabsTrigger>
+              </TabsList>
+              <TabsContent value='tokens'>
+                <TokenTableList tks={tokenBalance?.tks || []} />
+              </TabsContent>
+              <TabsContent value='send'></TabsContent>
+              <TabsContent value='add_funds'></TabsContent>
+              <TabsContent value='withdraw'></TabsContent>
+              <TabsContent value='swap'>
+                <Swap />
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </div>
