@@ -42,8 +42,10 @@ export function AssetSelection({
         className='bg-gray-50 text-gray-900 text-sm rounded-md block p-2.5'
       >
         {SUPPORTED_TOKENS.filter((tks) => tks.name !== selectedToken.name).map(
-          (tk) => (
-            <option>{tk.name}</option>
+          (tk, idx) => (
+            <option key={idx} selected={selectedToken.name === tk.name}>
+              {tk.name}
+            </option>
           )
         )}
       </select>
