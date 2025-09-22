@@ -3,25 +3,21 @@ import { TokenBalanceInterface } from '@/hooks/useToken';
 
 const TokenList = ({ tk }: { tk: TokenBalanceInterface }) => {
   return (
-    <div className='flex items-center justify-between'>
-      <div className='flex items-center gap-2'>
-        <div className='rounded-full overflow-hidden size-12'>
-        <img src={tk.image} alt='' />
+    <div className='flex items-end justify-between'>
+      <div className='flex gap-2 mt-4'>
+        <div className='rounded-full overflow-hidden size-11'>
+          <img src={tk.image} alt='' />
         </div>
-        <div className='flex flex-col gap-y-1'>
+        <div className='flex flex-col'>
           <span className='font-semibold'>{tk.name}</span>
-          <span className='font-merdium'>
+          <span className='font-merdium text-sm'>
             1 {tk.name} = {tk.price}
           </span>
         </div>
       </div>{' '}
-      <span className='font-semibold'>{tk.name}</span>
-      <span className='font-merdium'>
-        1 {tk.name} = {tk.price}
-      </span>
-      <div className='flex flex-col gap-y-1'>
-        <span className='font-semibold'>{tk.usdBalance}</span>
-        <span className='font-merdium'>{tk.balance}</span>
+      <div className='flex flex-col'>
+        <span className='font-semibold'>$ {tk.usdBalance}</span>
+        <span className='font-merdium text-sm'>{tk.balance} SOL</span>
       </div>
     </div>
   );

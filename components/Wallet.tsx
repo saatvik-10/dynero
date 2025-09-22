@@ -109,6 +109,8 @@ export function Profile({ publicKey }: { publicKey: string }) {
               </Button>
             </div>
 
+            <Separator className='my-3' />
+
             <TokenTableList tks={tokenBalance?.tks || []} />
           </div>
         </div>
