@@ -12,20 +12,20 @@ export const SUPPORTED_TOKENS: TokenInterface[] = [{
     mint: "So11111111111111111111111111111111111111112",
     native: true,
     price: '240',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/3/34/Solana_cryptocurrency_two.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsIsJL3zRgUrkD3yE3lD7LK0wZWSiRyY1GVg&s',
     decimals: 9
 }, {
     name: "USDT",
     mint: "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
     native: false,
     price: '1',
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvSxrpym7ij1Hf6zQOltcDORlrJGyj1kPf3A&s",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e9/Tether_USDT.png",
     decimals: 6
 }, {
     name: "USDC",
     mint: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
     native: false,
     price: '1',
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1vAKYEl0YffTpWSxrqEi_gmUsl-0BuXSKMQ&s",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/49/USDC_Logo.png",
     decimals: 6
 }]
