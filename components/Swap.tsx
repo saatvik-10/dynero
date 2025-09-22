@@ -4,8 +4,16 @@ import React, { useState } from 'react';
 import { SUPPORTED_TOKENS } from '@/lib/token';
 import { SwapAsset } from './SwapHelper';
 import { ArrowDownUp } from 'lucide-react';
+import { TokenBalanceInterface } from '@/hooks/useToken';
 
-const Swap = () => {
+const Swap = ({
+  tokenBalance,
+}: {
+  tokenBalance: {
+    totalBalance: string;
+    tks: TokenBalanceInterface[];
+  } | null;
+}) => {
   const [baseAsset, setBaseAsset] = useState(SUPPORTED_TOKENS[0]);
   const [quoteAsset, setQuoteAsset] = useState(SUPPORTED_TOKENS[2]);
 
@@ -23,6 +31,9 @@ const Swap = () => {
         selectedToken={baseAsset}
         onSelect={() => setBaseAsset(baseAsset)}
         title={'You Pay:'}
+        totalBalance={
+          tokenBalance?.tks.find((tk) => tk.name === baseAsset.name)?.balance
+        }
       />
       {/* <span className='text-xs font-medium text-slate-500'>
           {`Current Balance: 5641654 ${baseAsset.name}`}
@@ -42,6 +53,9 @@ const Swap = () => {
         selectedToken={quoteAsset}
         onSelect={() => setQuoteAsset(quoteAsset)}
         title={'You Receive'}
+        totalBalance={
+          tokenBalance?.tks.find((tk) => tk.name === quoteAsset.name)?.balance
+        }
       />
       {/* <span className='text-xs font-medium text-slate-500'>
           {`Current Balance: 5641654 ${quoteAsset.name}`}
