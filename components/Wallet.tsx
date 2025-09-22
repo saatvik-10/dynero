@@ -128,7 +128,7 @@ export function Profile({ publicKey }: { publicKey: string }) {
               <TabsContent value='add_funds'></TabsContent>
               <TabsContent value='withdraw'></TabsContent>
               <TabsContent value='swap'>
-                <Swap />
+                <Swap tokenBalance = {tokenBalance} />
               </TabsContent>
             </Tabs>
           </div>
