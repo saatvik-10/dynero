@@ -12,7 +12,8 @@ let prices: {
 
 const TOKEN_PRICE_REFRESH_INTERVAL = 120 * 1000;
 
-export const connection = new Connection(process.env.CONNECTION!)
+export const connection = new Connection("https://solana-mainnet.g.alchemy.com/v2/EspGgEsKtp6xdG1-P32lj9raEFUlgXNc"
+)
 
 export async function getSupportedTokensPrice() {
     if (!TOKEN_LAST_UPDATED || new Date().getTime() - TOKEN_LAST_UPDATED < TOKEN_PRICE_REFRESH_INTERVAL) {
