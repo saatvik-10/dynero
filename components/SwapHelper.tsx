@@ -9,6 +9,7 @@ export function SwapAsset({
   title,
   amount,
   totalBalance,
+  inputDisabled,
 }: {
   onSelect: (asset: TokenInterface) => void;
   onAmountChange: (val: string) => void;
@@ -16,6 +17,7 @@ export function SwapAsset({
   title: string;
   amount?: string;
   totalBalance?: string;
+  inputDisabled?: boolean;
 }) {
   return (
     <div className='flex items-center justify-between w-full'>
@@ -30,10 +32,11 @@ export function SwapAsset({
         type='text'
         placeholder='0'
         className='w-32 outline-none text-center text-2xl font-semibold'
-        value={amount}
+        value={amount ?? ''}
         onChange={(e) => {
           onAmountChange(e.target.value);
         }}
+        disabled={inputDisabled}
       />
     </div>
   );
