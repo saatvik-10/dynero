@@ -89,7 +89,7 @@ const Swap = ({
         totalBalance={
           tokenBalance?.tks.find((tk) => tk.name === quoteAsset.name)?.balance
         }
-        inputDisabled = {true}
+        inputDisabled={true}
       />
 
       <div className='flex items-center justify-end'>
