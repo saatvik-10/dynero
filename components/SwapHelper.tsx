@@ -29,7 +29,7 @@ export function SwapAsset({
       <input
         type='text'
         placeholder='0'
-        className='w-20 outline-none text-center text-3xl'
+        className='w-32 outline-none text-center text-2xl font-semibold'
         value={amount}
         onChange={(e) => {
           onAmountChange(e.target.value);
@@ -49,6 +49,7 @@ export function AssetSelection({
   return (
     <div>
       <select
+        value={selectedToken.name}
         onChange={(e) => {
           const selectedToken = SUPPORTED_TOKENS.find(
             (tks) => tks.name === e.target.value
@@ -61,7 +62,7 @@ export function AssetSelection({
         className='bg-gray-50 text-gray-900 text-sm rounded-md block p-2.5 w-24'
       >
         {SUPPORTED_TOKENS.map((tk, idx) => (
-          <option key={idx} selected={selectedToken.name === tk.name}>
+          <option key={idx} value={tk.name}>
             {tk.name}
           </option>
         ))}
