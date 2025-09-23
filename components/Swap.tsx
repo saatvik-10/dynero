@@ -5,6 +5,8 @@ import { SUPPORTED_TOKENS } from '@/lib/token';
 import { SwapAsset } from './SwapHelper';
 import { ArrowDownUp } from 'lucide-react';
 import { TokenBalanceInterface } from '@/hooks/useToken';
+import { Button } from './ui/button';
+import axios from 'axios';
 
 const Swap = ({
   tokenBalance,
@@ -19,12 +21,38 @@ const Swap = ({
   const [baseAmount, setBaseAmount] = useState<string>();
   const [quoteAmount, setQuoteAmount] = useState<string>();
 
-  //debouncing and async useEffect
+  const debounce = () =>
+    axios
+      .get(
+        `https://quote-api.jup.ag/v6/quote?inputMint=${baseAsset.mint}
+&outputMint=${quoteAsset.mint}
+&amount=${Number(baseAmount) * 10 ** baseAsset.decimals}
+&slippageBps=50`
+      )
+      .then((res) => {
+        setQuoteAmount(
+          (
+            Number(res.data.outAmount) / Number(10 ** quoteAsset.decimals)
+          ).toString()
+        );
+      })
+      .catch((error) => {
+        console.error('Error fetching quote:', error);
+      });
+
   useEffect(() => {
     if (!baseAmount) {
       return;
     }
-  }, []);
+
+    const res = setTimeout(() => {
+      debounce();
+    }, 800);
+
+    return () => {
+      clearTimeout(res);
+    };
+  }, [baseAsset, quoteAsset, baseAmount]);
 
   const handleSwap = () => {
     let newBaseAsset = baseAsset;
@@ -33,15 +61,13 @@ const Swap = ({
   };
 
   return (
-    <div className='flex flex-col gap-y-3 mt-4 items-start'>
+    <div className='flex flex-col gap-y-3 mt-4'>
       <SwapAsset
         selectedToken={baseAsset}
         onSelect={() => setBaseAsset(baseAsset)}
         title={'You Pay:'}
         amount={baseAmount}
-        onAmountChange={() => {
-          setBaseAmount(baseAmount);
-        }}
+        onAmountChange={setBaseAmount}
         totalBalance={
           tokenBalance?.tks.find((tk) => tk.name === baseAsset.name)?.balance
         }
@@ -59,13 +85,15 @@ const Swap = ({
         onSelect={() => setQuoteAsset(quoteAsset)}
         title={'You Receive'}
         amount={quoteAmount}
-        onAmountChange={() => {
-          setBaseAmount(quoteAmount);
-        }}
+        onAmountChange={setQuoteAmount}
         totalBalance={
           tokenBalance?.tks.find((tk) => tk.name === quoteAsset.name)?.balance
         }
       />
+
+      <div className='flex items-center justify-end'>
+        <Button className='cursor-pointer'>Swap Tokens</Button>
+      </div>
     </div>
   );
 };
