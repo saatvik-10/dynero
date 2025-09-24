@@ -12,8 +12,8 @@ export async function GET(req: NextRequest) {
 
     const tks = supportedTokens.map((tk, idx) => ({
         ...tk,
-        balance: balances[idx].toFixed(2),
-        usdBalance: (balances[idx] * Number(tk.price)).toFixed(2)
+        balance: balances[idx].toFixed(3),
+        usdBalance: (balances[idx] * Number(tk.price)).toFixed(3)
     }))
 
     return NextResponse.json({
