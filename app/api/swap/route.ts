@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-    const connection = new Connection("https://mainnet.helius-rpc.com/?api-key=5935eb6e-9c4e-4031-b4b6-f1290106d2d6")
+    const connection = new Connection("https://api.mainnet-beta.solana.com")
 
     const data: {
         quoteResponse: any
@@ -70,6 +70,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({
+        success: true,
         txid
     })
 }
