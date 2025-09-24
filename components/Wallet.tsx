@@ -59,10 +59,12 @@ export function Profile({ publicKey }: { publicKey: string }) {
     return <p>loading</p>;
   }
 
-  if (!session?.data?.user) {
-    route.push('/');
-    toast.error('Please sign in to continue!');
-  }
+  useEffect(() => {
+    if (session?.status === 'unauthenticated') {
+      toast.error('Please sign in to continue!');
+      route.push('/');
+    }
+  }, [session?.status, route]);
 
   return (
     <div className='flex justify-center pt-10'>
@@ -128,7 +130,7 @@ export function Profile({ publicKey }: { publicKey: string }) {
               <TabsContent value='add_funds'></TabsContent>
               <TabsContent value='withdraw'></TabsContent>
               <TabsContent value='swap'>
-                <Swap tokenBalance = {tokenBalance} />
+                <Swap tokenBalance={tokenBalance} />
               </TabsContent>
             </Tabs>
           </div>
