@@ -20,6 +20,7 @@ const Swap = ({
   const [quoteAsset, setQuoteAsset] = useState(SUPPORTED_TOKENS[2]);
   const [baseAmount, setBaseAmount] = useState<string>();
   const [quoteAmount, setQuoteAmount] = useState<string>();
+  const [quoteResponse, setQuoteResponse] = useState(null);
 
   const debounce = () =>
     axios
@@ -30,11 +31,17 @@ const Swap = ({
 &slippageBps=50`
       )
       .then((res) => {
+        /*
+        inputMint: "So11111111111111111111111111111111111111112", 
+        inAmount: "x000000000", 
+        outputMint: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+        */
         setQuoteAmount(
           (
             Number(res.data.outAmount) / Number(10 ** quoteAsset.decimals)
           ).toString()
         );
+        setQuoteResponse(res.data);
       })
       .catch((error) => {
         console.error('Error fetching quote:', error);
@@ -93,7 +100,12 @@ const Swap = ({
       />
 
       <div className='flex items-center justify-end'>
-        <Button className='cursor-pointer'>Swap Tokens</Button>
+        <Button
+          onClick={() => axios.post('/api/swap', quoteResponse)}
+          className='cursor-pointer'
+        >
+          Swap Tokens
+        </Button>
       </div>
     </div>
   );
