@@ -7,6 +7,7 @@ import { ArrowDownUp } from 'lucide-react';
 import { TokenBalanceInterface } from '@/hooks/useToken';
 import { Button } from './ui/button';
 import axios from 'axios';
+import { toast } from 'sonner';
 
 const Swap = ({
   tokenBalance,
@@ -101,7 +102,18 @@ const Swap = ({
 
       <div className='flex items-center justify-end'>
         <Button
-          onClick={() => axios.post('/api/swap', quoteResponse)}
+          onClick={async () => {
+            try {
+              const res = await axios.post('/api/swap', {
+                quoteResponse,
+              });
+              if (res.data.txId) {
+                toast.success('Swap done successfully!');
+              }
+            } catch (e) {
+              toast.error('Error while sending a txn');
+            }
+          }}
           className='cursor-pointer'
         >
           Swap Tokens
