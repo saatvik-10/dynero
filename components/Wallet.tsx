@@ -19,9 +19,7 @@ export function Profile({ publicKey }: { publicKey: string }) {
   const loadingStatus = session?.status == 'loading';
 
   const [copy, setCopy] = useState<boolean>(false);
-  const { loading, tokenBalance } = useTokens(
-    '8fCXUDCkvhEQkYNyMbsWgYsaqikorojdv2hgfezfvbdD'
-  );
+  const { loading, tokenBalance } = useTokens(publicKey);
   useEffect(() => {
     if (copy) {
       let timeout = setTimeout(() => {
