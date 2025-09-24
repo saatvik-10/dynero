@@ -1,5 +1,5 @@
 import { getAssociatedTokenAddress, getAccount } from "@solana/spl-token";
-import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
+import { Keypair, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { connection } from "./constants";
@@ -28,4 +28,13 @@ export async function getAccountBalance(tk: {
   } catch (err: any) {
     return 0;
   }
+}
+
+export function getPrivateKey(privateKey: string) {
+  const arr = privateKey.split(",").map(num => Number(num));
+  const privateKeyUIntArray = Uint8Array.from(arr);
+
+  const keyPair = Keypair.fromSecretKey(privateKeyUIntArray)
+
+  return keyPair
 }
