@@ -57,12 +57,10 @@ export function Profile({ publicKey }: { publicKey: string }) {
     return <p>loading</p>;
   }
 
-  useEffect(() => {
-    if (session?.status === 'unauthenticated') {
-      toast.error('Please sign in to continue!');
-      route.push('/');
-    }
-  }, [session?.status, route]);
+  if (!session.data?.user) {
+    window.location.href = '/';
+    return null;
+  }
 
   return (
     <div className='flex justify-center pt-10'>
