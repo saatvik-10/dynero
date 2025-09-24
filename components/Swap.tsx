@@ -107,6 +107,7 @@ const Swap = ({
               const res = await axios.post('/api/swap', {
                 quoteResponse,
               });
+              toast.info('Transacting...please be patient!');
               if (res.data.txId) {
                 toast.success('Swap done successfully!');
               }
