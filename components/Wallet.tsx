@@ -63,12 +63,12 @@ export function Profile({ publicKey }: { publicKey: string }) {
   }
 
   return (
-    <div className='flex justify-center pt-10 relative'>
+    <div className='flex flex-col items-center justify-center pt-10 relative gap-y-6'>
       <Button
         onClick={() => {
           route.push('/');
         }}
-        className='flex itens-center justify-center gap-2 absolute md:left-10 left-4 bg-transparent text-slate-700 text-lg font-semibold'
+        className='flex itens-center justify-center gap-2 absolute md:left-10 top-4 left-4 bg-transparent text-slate-700 text-lg font-semibold'
       >
         <ArrowLeft className='size-4' />
         Back
@@ -134,6 +134,19 @@ export function Profile({ publicKey }: { publicKey: string }) {
             </Tabs>
           </div>
         </div>
+      </div>
+
+      <div className='flex flex-col justify-start bg-white rounded-xl p-8 shadow-md font-semibold md:text-xl'>
+        <ul style={{ listStyleType: 'circle' }} className='space-y-2'>
+          <li>
+            This is a Decentralized-Centralized exchange...hence the
+            transactions might be slow!
+          </li>
+          <li>
+            Your private is fully encrypted and your assets will remain safe in
+            this wallet!
+          </li>
+        </ul>
       </div>
     </div>
   );
