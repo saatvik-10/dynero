@@ -143,8 +143,8 @@ export function Profile({ publicKey }: { publicKey: string }) {
             transactions might be slow!
           </li>
           <li>
-            Your private is fully encrypted and your assets will remain safe in
-            this wallet!
+            Your private key is fully encrypted and your assets will remain safe
+            in this wallet!
           </li>
         </ul>
       </div>
