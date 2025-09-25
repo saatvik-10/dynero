@@ -73,10 +73,15 @@ export default function Home() {
         ))}
       </div>
 
-      <div className='flex flex-col md:gap-y-0 md:flex-row items-center justify-center gap-8 pt-8'>
-        <img src='/1.png' alt='' className='border-2 rounded-lg h-48' />
-        <img src='/2.png' alt='' className='border-2 rounded-lg h-48' />
-        <img src='/3.png' alt='' className='border-2 rounded-lg h-48' />
+      <div
+        className='flex flex-col md:gap-y-0 md:flex-row items-center justify-center gap-8 pt-8
+  [&>*]:border-2 [&>*]:shadow-md [&>*]:rounded-lg [&>*]:h-48
+  [&>*]:transform [&>*]:transition [&>*]:duration-300
+  [&>*]:hover:scale-110 [&>*]:hover:-translate-y-2 [&>*]:cursor-pointer'
+      >
+        <img src='/1.png' alt='' />
+        <img src='/2.png' alt='' />
+        <img src='/3.png' alt='' />
       </div>
     </main>
   );
