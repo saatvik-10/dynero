@@ -3,6 +3,9 @@ import { Keypair, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { connection } from "./constants";
+import crypto from "crypto";
+
+const ENCRYPTION_KEY = process.env.PRIVATE_KEY_ENCRYPTION_KEY!;
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -30,11 +33,20 @@ export async function getAccountBalance(tk: {
   }
 }
 
-export function getPrivateKey(privateKey: string) {
-  const arr = privateKey.split(",").map(num => Number(num));
+export function decryptPrivateKey(encrypted: string): string {
+  const [ivHex, tagHex, encryptedHex] = encrypted.split(':');
+  const iv = Buffer.from(ivHex, 'hex');
+  const tag = Buffer.from(tagHex, 'hex');
+  const decipher = crypto.createDecipheriv('aes-256-gcm', Buffer.from(ENCRYPTION_KEY, 'hex'), iv);
+  decipher.setAuthTag(tag);
+  let decrypted = decipher.update(encryptedHex, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+}
+
+export function getPrivateKey(encrypted: string) {
+  const decrypted = decryptPrivateKey(encrypted);
+  const arr = decrypted.split(",").map(num => Number(num));
   const privateKeyUIntArray = Uint8Array.from(arr);
-
-  const keyPair = Keypair.fromSecretKey(privateKeyUIntArray)
-
-  return keyPair
+  return Keypair.fromSecretKey(privateKeyUIntArray);
 }

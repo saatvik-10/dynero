@@ -2,6 +2,10 @@ import GoogleProvider from "next-auth/providers/google";
 import { db } from "@/app/db";
 import { Keypair } from "@solana/web3.js";
 import { Session } from "next-auth";
+import crypto from 'crypto';
+
+const ENCRYPTION_KEY = process.env.PRIVATE_KEY_ENCRYPTION_KEY!;
+const IV_LENGTH = 12;
 
 export interface customSession extends Session {
     user: {
@@ -10,6 +14,15 @@ export interface customSession extends Session {
         image: string;
         uid: string;
     };
+}
+
+export function encryptPrivateKey(privateKey: string) {
+    const iv = crypto.randomBytes(IV_LENGTH);
+    const cipher = crypto.createCipheriv('aes-256-gcm', Buffer.from(ENCRYPTION_KEY, 'hex'), iv);
+    let encrypted = cipher.update(privateKey, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    const tag = cipher.getAuthTag().toString('hex');
+    return `${iv.toString('hex')}:${tag}:${encrypted}`;
 }
 
 export const authOptions = {
@@ -40,7 +53,7 @@ export const authOptions = {
             }
             return token;
         },
-        async signIn({ user, account, profile, email, credentials }: any) {
+        async signIn({ user, account, profile }: any) {
             if (account?.provider === "google") {
                 const email = user.email;
                 if (!email) {
@@ -59,7 +72,7 @@ export const authOptions = {
 
                 const keypair = Keypair.generate();
                 const publicKey = keypair.publicKey.toBase58();
-                const privateKey = keypair.secretKey;
+                const privateKey = encryptPrivateKey(keypair.secretKey.toString());
 
                 await db.user.create({
                     data: {
@@ -72,7 +85,7 @@ export const authOptions = {
                         solanaWallet: {
                             create: {
                                 pubkey: publicKey,
-                                privateKey: privateKey.toString(),
+                                privateKey: privateKey,
                             },
                         },
                         inrWallet: {
