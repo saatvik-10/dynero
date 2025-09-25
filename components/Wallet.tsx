@@ -63,8 +63,8 @@ export function Profile({ publicKey }: { publicKey: string }) {
   }
 
   return (
-    <div className='flex justify-center pt-10'>
-      <div className='w-full max-w-md rounded-md shadow-md md:max-w-xl'>
+    <div className='flex justify-center pt-10 '>
+      <div className='w-full max-w-md rounded-md shadow-md md:max-w-xl bg-white'>
         <div className='p-10'>
           <div className='flex items-center gap-3'>
             <img
@@ -114,17 +114,11 @@ export function Profile({ publicKey }: { publicKey: string }) {
             <Tabs defaultValue='tokens'>
               <TabsList className='flex items-center justify-center w-full [&>*]:cursor-pointer'>
                 <TabsTrigger value='tokens'>TOKENS</TabsTrigger>
-                <TabsTrigger value='send'>SEND</TabsTrigger>
-                <TabsTrigger value='add_funds'>ADD FUNDS</TabsTrigger>
-                <TabsTrigger value='withdraw'>WITHDRAW</TabsTrigger>
                 <TabsTrigger value='swap'>SWAP</TabsTrigger>
               </TabsList>
               <TabsContent value='tokens'>
                 <TokenTableList tks={tokenBalance?.tks || []} />
               </TabsContent>
-              <TabsContent value='send'></TabsContent>
-              <TabsContent value='add_funds'></TabsContent>
-              <TabsContent value='withdraw'></TabsContent>
               <TabsContent value='swap'>
                 <Swap tokenBalance={tokenBalance} />
               </TabsContent>
