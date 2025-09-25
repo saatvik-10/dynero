@@ -68,7 +68,7 @@ export function Profile({ publicKey }: { publicKey: string }) {
         onClick={() => {
           route.push('/');
         }}
-        className='flex itens-center justify-center gap-2 absolute md:left-10 top-4 left-4 bg-transparent text-slate-700 text-lg font-semibold'
+        className='flex itens-center justify-center gap-2 absolute md:left-10 top-4 left-4 bg-transparent text-slate-700 text-lg font-semibold cursor-pointer hover:bg-transparent hover:text-slate-700/60'
       >
         <ArrowLeft className='size-4' />
         Back
