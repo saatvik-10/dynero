@@ -136,15 +136,15 @@ export function Profile({ publicKey }: { publicKey: string }) {
         </div>
       </div>
 
-      <div className='flex flex-col justify-start bg-white rounded-xl p-8 shadow-md font-semibold md:text-xl'>
-        <ul style={{ listStyleType: 'circle' }} className='space-y-2'>
+      <div className='flex flex-col justify-start bg-white rounded-xl p-8 shadow-md font-semibold md:text-xl md:text-center'>
+        <ul className='space-y-2'>
           <li>
-            This is a Decentralized-Centralized exchange...hence the
+            - This is a Decentralized-Centralized exchange...hence the
             transactions might be slow!
           </li>
           <li>
-            Your private key is fully encrypted and your assets will remain safe
-            in this wallet!
+            - Your private key is fully encrypted using AES-GCM standard and
+            your assets will remain safe in this wallet!
           </li>
         </ul>
       </div>
