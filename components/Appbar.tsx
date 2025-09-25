@@ -4,7 +4,6 @@ import React from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
-import Link from "next/link";
 
 const Appbar = () => {
   const session = useSession();
@@ -28,7 +27,7 @@ const Appbar = () => {
 
   return (
     <div className="m-6 flex max-w-7xl flex-row items-center justify-between rounded-md border-none p-4 shadow-lg bg-white">
-      <Link href={'/'} className="text-lg font-bold">DYNERO</Link>
+      <div className="text-lg font-bold">DYNERO</div>
 
       <div>
         {session?.data?.user ? (

@@ -6,7 +6,7 @@ import { Separator } from '@/components/ui/separator';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { toast } from 'sonner';
-import { BadgeDollarSign, CheckCircle } from 'lucide-react';
+import { ArrowLeft, BadgeDollarSign, CheckCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { useTokens } from '@/hooks/useToken';
 import TokenTableList from './TokenTableList';
@@ -63,7 +63,16 @@ export function Profile({ publicKey }: { publicKey: string }) {
   }
 
   return (
-    <div className='flex justify-center pt-10 '>
+    <div className='flex justify-center pt-10 relative'>
+      <Button
+        onClick={() => {
+          route.push('/');
+        }}
+        className='flex itens-center justify-center gap-2 absolute md:left-10 left-4 bg-transparent text-slate-700 text-lg font-semibold'
+      >
+        <ArrowLeft className='size-4' />
+        Back
+      </Button>
       <div className='w-full max-w-md rounded-md shadow-md md:max-w-xl bg-white'>
         <div className='p-10'>
           <div className='flex items-center gap-3'>
