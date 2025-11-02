@@ -6,7 +6,7 @@ let TOKEN_LAST_UPDATED: number | null = null;
 
 let prices: {
     [key: string]: {
-        price: string;
+        usdPrice: number;
     }
 } = {};
 
@@ -19,8 +19,8 @@ export async function getSupportedTokensPrice() {
     if (!TOKEN_LAST_UPDATED || new Date().getTime() - TOKEN_LAST_UPDATED < TOKEN_PRICE_REFRESH_INTERVAL) {
         try {
             const tokenIds = SUPPORTED_TOKENS.map(tid => tid.mint).join(',')
-            const res = await axios.get(`https://lite-api.jup.ag/price/v2?ids=${tokenIds}`);
-            prices = res.data.data;
+            const res = await axios.get(`https://lite-api.jup.ag/price/v3?ids=${tokenIds}`);
+            prices = res.data;
             TOKEN_LAST_UPDATED = new Date().getTime();
         } catch (err: any) {
             console.log(err)
@@ -28,6 +28,6 @@ export async function getSupportedTokensPrice() {
     }
     return SUPPORTED_TOKENS.map(stk => ({
         ...stk,
-        price: prices[stk.mint]?.price || "0"
+        price: prices[stk.mint]?.usdPrice?.toString() || "0"
     }))
 }
