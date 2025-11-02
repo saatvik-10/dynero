@@ -26,7 +26,7 @@ const Swap = ({
   const debounce = () =>
     axios
       .get(
-        `https://quote-api.jup.ag/v6/quote?inputMint=${baseAsset.mint}
+        `https://lite-api.jup.ag/swap/v1/quote?inputMint=${baseAsset.mint}
 &outputMint=${quoteAsset.mint}
 &amount=${Number(baseAmount) * 10 ** baseAsset.decimals}
 &slippageBps=50`
