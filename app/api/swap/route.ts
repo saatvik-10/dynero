@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { swapTransaction } = await (
-        await fetch('https://quote-api.jup.ag/v6/swap', {
+        await fetch('https://lite-api.jup.ag/swap/v1/swap', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
